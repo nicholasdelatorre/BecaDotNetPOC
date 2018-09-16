@@ -1,0 +1,129 @@
+﻿@model BecaDotNet.UI.MVC.RazorView.Models.ViewModel.UserAccountViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    Page.Title = "Novo Usuário";
+}
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<div class="container">
+    <div class="pageTitle">
+        <h2>@(!Model.IsEdit ? "Novo Usuário" : ($"Editar Usuario : {Model.NomeUsuario}"))</h2>
+    </div>
+    <div class="col-md-4">
+        @using (Html.BeginForm("SaveUser", "User", FormMethod.Post, new { @id = "formUser" })) {
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.NomeUsuario)
+                @Html.TextBoxFor(m => m.NomeUsuario, new { placeholder = "Nome", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.NomeUsuario,"", new { @class = "text-danger"})
+            </div>
+            <div class="form-group">
+                @if (Model.IsEdit) {
+                    @Html.LabelFor(m => m.EmailUsuario)
+                    @Html.TextBoxFor(m => m.EmailUsuario, new { placeholder = "E-Mail", @class = "form-control", @readonly = "readonly" })
+                }
+                else {
+                    @Html.LabelFor(m => m.EmailUsuario)
+                    @Html.TextBoxFor(m => m.EmailUsuario, new { placeholder = "E-Mail", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.EmailUsuario, "", new { @class = "text-danger" })
+                }
+            </div>
+            <div class="form-group">
+                @if (Model.IsEdit) {
+                    @Html.LabelFor(m => m.LoginUsuario)
+                    @Html.TextBoxFor(m => m.LoginUsuario, new { placeholder = "Login", @class = "form-control", @readonly = "readonly" })
+                }
+                else {
+                    @Html.LabelFor(m => m.LoginUsuario)
+                    @Html.TextBoxFor(m => m.LoginUsuario, new { placeholder = "Login", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.LoginUsuario, "", new { @class = "text-danger" })
+                }
+            </div>
+            if (!Model.IsEdit) {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SenhaUsuario)
+                    @Html.PasswordFor(m => m.SenhaUsuario, new { placeholder = "Senha", @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SenhaUsuario, "", new { @class = "text-danger" })
+                </div>
+            }
+            @Html.HiddenFor(m => m.IsEdit)
+            @Html.HiddenFor(m => m.Id)
+
+
+            <div class="form-group">
+                <button id="btnSaveUser" class="btn btn-success ">Salvar</button>
+            </div>
+        }
+    </div>
+</div>
+<script>
+        $(function () {
+            $("#btnSaveUser").on("click", function (e) {
+                $("#formUser").validate();
+            });
+
+            var errMsg = '@ViewBag.ErrorMessage';
+            if (errMsg !== '') {
+                alert(errMsg);
+            }
+        });
+</script>
+
+
+@*@model BecaDotNet.UI.MVC.RazorView.Models.ViewModel.UserAccountViewModel
+    @{
+        ViewBag.Title = "New";
+        Layout = "~/Views/Shared/Layout.cshtml";
+        Page.Title = "Novo Usuário";
+    }
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <h2>@(!Model.IsEdit ? "Novo Usuário" : ($"Editar Usuario :{Model.NomeUsuario}"))</h2>
+    <p>@Html.ActionLink("Cancelar", "List")</p>
+    @using (Html.BeginForm("SaveUser", "User", FormMethod.Post, new { @id = "formUser" })) {
+        <div class="form-group">
+            @Html.LabelFor(m => m.NomeUsuario)
+            @Html.TextBoxFor(m => m.NomeUsuario, new { placeholder = "Nome" })
+            @Html.ValidationMessageFor(m => m.NomeUsuario)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.EmailUsuario)
+            @Html.TextBoxFor(m => m.EmailUsuario, new { placeholder = "E-Mail" })
+            @Html.ValidationMessageFor(m => m.EmailUsuario)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.LoginUsuario)
+            @Html.TextBoxFor(m => m.LoginUsuario, new { placeholder = "Login" })
+            @Html.ValidationMessageFor(m => m.LoginUsuario)
+        </div>
+        if (!Model.IsEdit) {
+            <div class="form-group">
+                @Html.LabelFor(m => m.SenhaUsuario)
+                @Html.PasswordFor(m => m.SenhaUsuario, new { placeholder = "Senha" })
+                @Html.ValidationMessageFor(m => m.SenhaUsuario)
+            </div>
+        }
+        <div class="form-group">
+            <Label>Superior</Label>
+            @Html.DropDownListFor(m => m.IdSuperior, Model.DdlUser)
+        </div>
+
+        @Html.HiddenFor(m => m.IsEdit)
+        @Html.HiddenFor(m => m.Id)
+        <div class="form-group">
+            <button id="btnSaveUser" class="btn btn-success">Salvar</button>
+        </div>
+    }
+    <script>
+        $(function () {
+            $("#btnSaveUser").on("click", function (e) {
+                $("#formUser").validate();
+            });
+
+            var errMsg = '@ViewBag.ErrorMessage';
+            if (errMsg !== '') {
+                alert(errMsg);
+            }
+        });
+    </script>*@

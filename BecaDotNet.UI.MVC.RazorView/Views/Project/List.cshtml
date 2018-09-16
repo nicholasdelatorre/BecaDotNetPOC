@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="container">
+
+
+
+    <div class="pageTitle">
+        <h2>Lista de Projetos</h2>
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr style="text-align: center">
+                <th scope="col">#</th>
+                <th scope="col">Projeto</th>
+                <th scope="col">Data de Inicio</th>
+                <th scope="col">Data de Termino</th>
+                @if (BecaDotNet.UI.MVC.RazorView.Models.ViewModel.CurrentUser.UserData.UserTypeId == 1) {
+                    <th scope="col"></th>
+
+                }
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.listProject) {
+
+
+                <tr style="text-align: center">
+                    @if (item.IsActive == true) {
+                        <td><b>@item.Id</b></td>
+                        <td>@item.ProjectName</td>
+                        <td>@item.StartDate.ToShortDateString()</td>
+                        <td>@item.EndDate</td>
+
+                        if (BecaDotNet.UI.MVC.RazorView.Models.ViewModel.CurrentUser.UserData.UserTypeId == 1) {
+                        <td>
+                            <a name="btnEdit" class="btn btn-primary" href="~/Project/Edit/@item.Id">Editar</a>
+                            <a name="btnDelite" style="margin-left:15px" class="btn btn-danger" href="~/Project/Delete/@item.Id">Excluir</a>
+                            <a name="btnDelite" style="margin-left:15px" class="btn btn-dark" href="~/ProjectUser/New/@item.Id">Adicionar Usuário</a>
+                        </td>
+                           
+                        }
+
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+

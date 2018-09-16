@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Default.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <title>Index</title>
+</head>
+<body>
+    <div id="loginContainer" class="container-fluid">
+
+        <div id="divForm" class="col-md-4">
+
+            <div id="txtTituloLogin">
+                <h1>Login</h1>
+            </div>
+            <div id="innerDivForm">
+
+                @using (Html.BeginForm("Index", "Login", FormMethod.Post, null)) {
+                    <div class="form-group">
+                        <input type="text" id="txtLogin" placeholder="Login" required name="login" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="txtPassword" placeholder="Senha" required name="password" class="form-control" />
+                    </div>
+                    <div class="form-group" id="divBtnLogin">
+                        <button id="btnLogin" class="btn btn-success">Login</button>
+                    </div>
+                }
+            </div>
+            @if (ViewBag.LoginError != null) {
+                <div id="dvAuthError">
+                    <p>@ViewBag.LoginError</p> 
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

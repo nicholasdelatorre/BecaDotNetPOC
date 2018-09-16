@@ -1,0 +1,110 @@
+﻿@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+}
+
+<div class="container">
+
+
+
+        <div class="pageTitle">
+            <h2>Lista de Usuários</h2>
+        </div>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr style="text-align: center">
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Register</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Superior</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.listUser) {
+                <tr style="text-align: center">
+                    <td><b>@item.Id</b></td>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Login</td>
+                    <td>@item.RegisterDate.ToShortDateString()</td>
+                    <td>@(item.IsActive ? "Ativo" : "Inativo")</td>
+                    <td>@(item.UserType != null ? item.UserType.Description : "N/A")</td>
+                    <td>@(item.Superior != null ? item.Superior.Name : "N/A")</td>
+                    <td><a name="btnEdit" class="btn btn-primary" href="~/User/Edit/@item.Id">Editar</a></td>
+                    <td><a name="btnDelite" class="btn btn-danger" href="~/User/Delete/@item.Id">Excluir</a></td>
+                   
+
+                </tr>
+                }
+            </tbody>
+        </table>
+ 
+
+
+</div>
+
+
+
+
+
+@*@model IEnumerable<BecaDotNet.UI.MVC.RazorView.Models.ViewModel.UserListViewModel>
+    @{
+        ViewBag.Title = "List";
+        Layout = "~/Views/Shared/Layout.cshtml";
+    }
+
+    <h2>Usuários</h2>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nome</th>
+                <th>Login</th>
+                <th>Data de Cadastro</th>
+                <th>Usuário Ativo</th>
+                <th>Tipo de Usuário</th>
+                <th>Superior</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>@item.NomeUsuario</td>
+                    <td>@item.LoginUsuario</td>
+                    <td>@item.DataCadastro.ToString("dd/MM/yyyy hh:mm:ss")</td>
+                    <td>@(item.UsuarioAtivo ? "Sim" : "Não")</td>
+                    <td>@item.DescTipoUsuario</td>
+                    <td>@item.NomeSuperior</td>
+                    <td>
+                        <a href="#" class="btn btn-danger deleteUser" rel="@item.Id">Excluir</a>
+                        <a href="#" class="btn btn-success editUser" rel="@item.Id">Editar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        $(function () {
+            $('.deleteUser').on('click', function (e) {
+                e.preventDefault();
+                var id = this.getAttribute('rel');
+                alert(id);
+            });
+            $('.editUser').on('click', function (e) {
+
+                e.preventDefault();
+                var id = this.getAttribute('rel');
+                window.location = '/User/Edit/' + id;
+            });
+        });
+    </script>*@

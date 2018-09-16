@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="pageTitle">
+        <h2>Histórico</h2>
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr style="text-align: center">
+                <th scope="col">Usuário</th>
+                <th scope="col">Projeto</th>
+                <th scope="col">Data Inicio</th>
+                <th scope="col">Data Fim</th>
+                <th scope="col">Responsável</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in ViewBag.listProjectUser) {
+                <tr style="text-align: center">
+                    <td>
+                        @item.UserId
+                    </td>
+                    <td>
+                        @item.ProjectId
+                    </td>
+
+          
+                    <td>
+                        @item.UserProjectStartDate.ToShortDateString()
+                    </td>
+                    
+                    <td>
+                        @item.UserProjectEndDate.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.Responsavel
+                    </td>
+
+                    <td>
+                        <a name="btnEdit" class="btn btn-primary" href="~/ProjectUser/Edit/@item.Id">Editar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

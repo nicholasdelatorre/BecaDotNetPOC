@@ -1,0 +1,103 @@
+﻿@model BecaDotNet.UI.MVC.RazorView.Models.ViewModel.ProjectUserViewModel
+
+@{
+    ViewBag.Title = "ProjectUserControl";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="container">
+    <div class="pageTitle">
+        <h2>Adicionar Usuário ao Projeto</h2>
+    </div>
+
+    <div class="col-md-4">
+        @using (Html.BeginForm("SaveProjectUser", "ProjectUser", FormMethod.Post, new { @id = "formProjectUser" })) {
+
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.ProjectId)
+                @Html.TextBoxFor(m => m.ProjectId, new { @class = "form-control", @readonly = "readonly" })
+            </div>
+
+            if (!Model.IsEdit) {
+                <div class="form-group">
+
+                    
+                    @Html.LabelFor(model => model.UserId)
+                    @Html.DropDownListFor(m => m.UserId, Model.DdlUsuarios, new { @class = "form-control selectpicker" })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+
+                </div>
+            }
+
+            <div class="form-group">
+
+                @if (Model.IsEdit) {
+                    @Html.LabelFor(m => m.DataInicio)
+                    @Html.TextBoxFor(m => m.DataInicio, "{0:yyyy-MM-dd}", new { @class = "form-control", @readonly = "readonly" })
+                }
+                else {
+                    @Html.LabelFor(m => m.DataInicio)
+                    @Html.TextBoxFor(m => m.DataInicio, "{0:yyyy-MM-dd}", new { placeholder = "Data de Início", @class = "form-control", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(m => m.DataInicio)
+                }
+
+            </div>
+
+
+            <div class="form-group">
+
+                @if (Model.IsEdit) {
+                    if (Model.DataFim == null) {
+                        @Html.LabelFor(m => m.DataFim)
+                        @Html.TextBoxFor(m => m.DataFim, new { placeholder = "Data Final", @class = "form-control", @Type = "Date" })
+                    }
+                    else {
+                        @Html.LabelFor(m => m.DataFim)
+                        @Html.TextBoxFor(m => m.DataFim, new { placeholder = "Data Final", @class = "form-control", @Type = "Date", @readonly = "readonly" })
+                    }
+
+                }
+
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.Responsavel)
+                @Html.TextBoxFor(m => m.Responsavel, new { placeholder = "Responsável", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Responsavel)
+            </div>
+            @Html.HiddenFor(m => m.IsEdit)
+            @Html.HiddenFor(m => m.Id)
+
+            <div class="form-group">
+                <button id="btnSaveProject" class="btn btn-success ">Salvar</button>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+<script>
+    $(function () {
+        $("#formProjectUser").on("click", function (e) {
+            $("#formProjectUser").validate();
+        });
+
+        var errMsg = '@ViewBag.ErrorMessage';
+        if (errMsg !== '') {
+            alert(errMsg);
+        }
+    });
+</script>

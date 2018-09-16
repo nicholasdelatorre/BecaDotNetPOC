@@ -1,0 +1,50 @@
+﻿@model BecaDotNet.UI.MVC.RazorView.Models.ViewModel.CustomerViewModel
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="container">
+
+    <div class="pageTitle">
+        <h2>Lista de Clientes</h2>
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr style="text-align: center">
+                <th scope="col">#</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Nome do Contato</th>
+                @if (BecaDotNet.UI.MVC.RazorView.Models.ViewModel.CurrentUser.UserData.UserTypeId == 1) {
+                    <th scope="col"></th>
+                    
+                }
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.listCustomer) {
+            <tr style="text-align: center">
+                @if (item.IsActive == true) {
+                    <td><b>@item.Id</b></td>
+                    <td>@item.Name</td>
+                    <td>@item.Cnpj.ToString(@"00\.000\.000\/0000\-00")</td>
+                    <td>@item.ContactName</td>
+                    if (BecaDotNet.UI.MVC.RazorView.Models.ViewModel.CurrentUser.UserData.UserTypeId == 1) {
+                        <td>
+                            <a name="btnEdit" class="btn btn-primary" href="~/Customer/Edit/@item.Id">Editar</a>
+                            <a name="btnDelite" class="btn btn-danger" style="margin-left:15px" href="~/Customer/Delete/@item.Id">Excluir</a>
+                        </td>
+                       
+                    }
+                }
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
